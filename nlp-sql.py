@@ -23,14 +23,14 @@ mysql.init_app(nlpsql)
 #route for home
 @nlpsql.route('/')
 def home():
-    if 'error' in session:  
+    if 'error' in session:
         error=session['error']
         session.pop('error',None)
-    else:   
+    else:
         error=''
     return render_template('login.html',error=error)
-    
-#route for getting example pdf  
+
+#route for getting example pdf
 @nlpsql.route('/results')
 def returnResultsPDF():
     file_name = 'results.pdf'
@@ -41,7 +41,7 @@ def logout():
     session.pop('error',None)
     session.pop('access',None)
     return redirect('/')
-    
+
 @nlpsql.route('/submitLogin',methods=['POST','GET'])
 def processLogin():
     username=request.form['username']
@@ -59,7 +59,7 @@ def processLogin():
         else:
             session['error'] = 'Invalid Username or password'
             return redirect('/')
-    else:       
+    else:
         session['error'] = 'Invalid Username or password'
         return redirect('/')
 
@@ -95,7 +95,7 @@ def getdetails():
     data = cursor.fetchall()
     print(data)
     return redirect('/index')
-        
+
 @nlpsql.route('/index')
 def getConsole():
     if 'access' in session:
@@ -104,7 +104,7 @@ def getConsole():
     else:
         access=2
     return render_template('index.html',access=access)
-    
+
 @nlpsql.route('/admin')
 def adminPanel():
     query = 'SELECT * FROM users'
@@ -122,7 +122,7 @@ def adminPanel():
         encodedData.append(encodedrow)
     return render_template('admin.html',data=encodedData)
 
-#getting mysql result for the input query 
+#getting mysql result for the input query
 @nlpsql.route('/submitQuery',methods=['POST'])
 def getQuery():
     query=request.form['query']
@@ -134,7 +134,7 @@ def getQuery():
     cursor = mysql.connect().cursor()
     cursor.execute(query)
     data = cursor.fetchall()
-    
+
     #converting from str to UTF-8
     encodedData = []
     for row in data:
@@ -145,18 +145,18 @@ def getQuery():
             else:
                 encodedrow.append(item)
         encodedData.append(encodedrow)
-            
-    
+
+
     #creating html table for  Query result
     htmlResult="<span class='terminal-text-precommand'>user@snlp-sql</span><span class='terminal-text-command'>:~$ : <span      class='terminal-text-command'>"+query+"</span><hr /><table class='table-bordered display-table'>"
-        
+
     for tableRow in encodedData:
         htmlResult=htmlResult+"<tr>"
         for tablecell in tableRow:
             htmlResult=htmlResult+"<td>"+str(tablecell)+"</td>"
         htmlResult=htmlResult+"</tr>"
     htmlResult=htmlResult+"</table>"
-    
+
     #converts html to jason format
     return jsonify(htmlResult)
 
@@ -178,7 +178,7 @@ def showStudentDetails():
             else:
                 encodedrow.append(item)
         encodedData.append(encodedrow)
-                
+
     studentTable=""
     for row in encodedData:
         studentTable=studentTable+"<tr>"
@@ -208,8 +208,8 @@ def showDepartmentDetails():
             else:
                 encodedrow.append(item)
         encodedData.append(encodedrow)
-                
-    departmentTable="";
+
+    departmentTable=""
     for row in encodedData:
         departmentTable=departmentTable+"<tr>"
         for cell in row:

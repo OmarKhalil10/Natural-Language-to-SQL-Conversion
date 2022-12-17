@@ -7,7 +7,7 @@ Quick Setup
 
 Create and activate virtual Environment : $ virtualenv nlpSql
 
-$ source nlpSql/bin/activate
+$ source nlpSql/Scripts/activate
 
 Download required packages : $ pip install -r requirements.txt
 
@@ -22,19 +22,12 @@ nltk.download()
 
 Run Server : $ python nlp-sql.py
 
-References: [1] Garima Singh, Arun Solanki 2016. An algorithm to transform natural language into SQL queries for relational databases. Gautam Buddha University, Greater Noida, India
-
-
-## Difference 
-sql, Readme
-
-
 ## Future Work:
-- [DONE] lexical analysis 
+- [DONE] lexical analysis
 - [DONE] syntax analysis
 - [DONE] Intermediate representation
-- [DONE] generation of SQL statements 
+- [DONE] generation of SQL statements
 - [DONE] sample input and output  queries as results
-- [DONE] all references you used 
+- [DONE] all references you used
 - [DONE] Edit Layout frontend
 - [DONE] Check dependencies frontend
